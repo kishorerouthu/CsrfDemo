@@ -11,6 +11,7 @@
             <resource>
                 <filtering>true</filtering>
                 <directory>src/main/resources</directory>
+	<!-- added new comment -->
             </resource>
             <resource>
                 <filtering>true</filtering>
