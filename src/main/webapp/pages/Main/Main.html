@@ -1,0 +1,35 @@
+<wm-page data-ng-controller="MainPageController" name="mainpage" pagetitle="Main">
+    <wm-header content="header" name="header" height="auto"></wm-header>
+    <wm-top-nav name="topnav" content="topnav"></wm-top-nav>
+    <wm-content name="content">
+        <wm-left-panel columnwidth="2" name="leftpanel" content="leftnav"></wm-left-panel>
+        <wm-page-content columnwidth="8" name="mainContent" padding="unset 15px">
+            <wm-composite name="composite1">
+                <wm-label class="col-md-3 control-label" name="fromAccountLb" caption="From Acount"></wm-label>
+                <wm-container class="col-md-9" name="container1">
+                    <wm-text name="fromAccountTxt" placeholder="Enter from account number" type="number"></wm-text>
+                </wm-container>
+            </wm-composite>
+            <wm-composite name="composite2">
+                <wm-label class="col-md-3 control-label" caption="To Account" name="toAccountLb"></wm-label>
+                <wm-container class="col-md-9" name="container2">
+                    <wm-text placeholder="Enter to account number" name="toAccountTxt" type="number"></wm-text>
+                </wm-container>
+            </wm-composite>
+            <wm-composite name="composite4">
+                <wm-label class="col-md-3 control-label" name="amountLb" caption="Amount"></wm-label>
+                <wm-container class="col-md-9" name="container4">
+                    <wm-text name="amountTxt" placeholder="Enter amount to transfer"></wm-text>
+                </wm-container>
+            </wm-composite>
+            <wm-button class="btn-default" caption="Transfer" type="button" margin="unset 0.5em" name="button1" on-click="Variables.transferVar.invoke()"></wm-button>
+            <wm-grid title="Account List" dataset="bind:Variables.BankDBAccountData.dataSet" navigation="Basic" name="grid1">
+                <wm-grid-column binding="id" caption="Id" type="integer" primary-key="true" generator="identity" readonly="true" edit-widget-type="number" show="true"></wm-grid-column>
+                <wm-grid-column binding="name" caption="Name" type="string" generator="assigned" readonly="true" edit-widget-type="text" show="true"></wm-grid-column>
+                <wm-grid-column binding="balance" caption="Balance" type="double" generator="assigned" readonly="true" edit-widget-type="number" show="true"></wm-grid-column>
+            </wm-grid>
+        </wm-page-content>
+        <wm-right-panel columnwidth="2" name="rightpanel" content="rightnav"></wm-right-panel>
+    </wm-content>
+    <wm-footer name="footer" content="footer"></wm-footer>
+</wm-page>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:p="http://www.springframework.org/schema/p" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <context:component-scan base-package="com.csrfdemo.bankdb.controller,com.csrfdemo.bankdb.service,com.csrfdemo.bankdb.dao"/>
+    <bean class="com.wavemaker.runtime.data.spring.WMPropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>
+                    classpath:BankDB.properties
+                </value>
+            </list>
+        </property>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+    </bean>
+    <bean id="BankDBWMManagedDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" depends-on="systemPropertyInitializer" lazy-init="true"
+          p:driverClass="${BankDB.driverClass}"
+          p:jdbcUrl="${BankDB.url}"
+          p:user="${BankDB.username}"
+          p:password="${BankDB.password}"
+          p:maxPoolSize="4"
+          p:minPoolSize="2"
+          p:maxIdleTime="600"
+          p:maxStatements="50"
+          p:maxStatementsPerConnection="20"
+          p:checkoutTimeout="30000"
+          p:idleConnectionTestPeriod="300"
+          p:unreturnedConnectionTimeout="300"
+          p:debugUnreturnedConnectionStackTraces="true"
+          p:acquireRetryAttempts="3"
+          p:acquireRetryDelay="1000"
+          p:contextClassLoaderSource="library"
+          p:privilegeSpawnedThreads="true"
+            />
+
+    <bean id="BankDBEntityInterceptor" class="com.wavemaker.runtime.data.interceptors.WMEntityInterceptor"/>
+
+    <bean id="BankDBSessionFactory" class="com.wavemaker.runtime.data.factory.TypeResolverSessionFactoryBean">
+        <property name="dataSource" ref="BankDBDataSource"/>
+        <property name="packagesToScan" value="com.csrfdemo.bankdb"/>
+        <property name="entityInterceptor" ref="BankDBEntityInterceptor"/>
+        <property name="mappingResources">
+            <list>
+                <value>
+                BankDB-queries.hbm.xml
+                </value>
+            </list>
+        </property>
+
+        <property name="customTypes">
+            <array value-type="com.wavemaker.runtime.data.CustomType">
+                <ref bean="dateTimeCustomType"/>
+            </array>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">
+                ${BankDB.dialect}
+                </prop>
+                <prop key="hibernate.show_sql">
+                    false
+                </prop>
+                <prop key="hibernate.globally_quoted_identifiers">
+                    false
+                </prop>
+                <prop key="hibernate.hbm2ddl.auto">
+                ${BankDB.hbm2ddl}
+                </prop>
+                <prop key="hibernate.temp.use_jdbc_metadata_defaults">
+                    false
+                </prop>
+                <prop key="hibernate.schema_update.unique_constraint_strategy">
+                    skip
+                </prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="BankDBTransactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+        <property name="sessionFactory" ref="BankDBSessionFactory"/>
+    </bean>
+    <bean id="BankDBTemplate" class="org.springframework.orm.hibernate4.HibernateTemplate">
+        <property name="sessionFactory" ref="BankDBSessionFactory"/>
+    </bean>
+    <bean id="BankDBWMQueryExecutor" class="com.wavemaker.runtime.data.dao.query.WMQueryExecutorImpl">
+        <property name="template" ref="BankDBTemplate"/>
+    </bean>
+    <bean id="BankDBWMProcedureExecutor" class="com.wavemaker.runtime.data.dao.procedure.WMProcedureExecutorImpl">
+        <property name="template" ref="BankDBTemplate"/>
+        <property name="serviceId" value="BankDB" />
+    </bean>
+
+    <bean id="persistentLocalDateTimeType" class="com.wavemaker.studio.common.data.type.WMPersistentLocalDateTime"/>
+    <bean id="dateTimeCustomType" class="com.wavemaker.runtime.data.CustomType">
+        <property name="type" ref="persistentLocalDateTimeType"/>
+        <property name="keys">
+            <list>
+                <value>DateTime</value>
+                <value>org.joda.time.LocalDateTime</value>
+            </list>
+        </property>
+    </bean>
+    <bean id="BankDBPageableHandlerMethodResolver" class="com.wavemaker.runtime.resolver.WMPageableHandlerMethodArgumentResolver" >
+        <property name="pageParameterName" value="page"/>
+        <property name="sizeParameterName" value="size"/>
+        <property name="oneIndexedParameters" value="true"/>
+        <property name="maxPageSize" value="${BankDB.maxPageSize}"/>
+        <property name="fallbackPageable">
+            <bean  class="org.springframework.data.domain.PageRequest">
+                <constructor-arg  value="0"/>
+                <constructor-arg  value="20"/>
+            </bean>
+        </property>
+    </bean>
+
+    <bean id="BankDBDataSource" class="com.wavemaker.runtime.data.datasource.WMDataSource">
+        <property name="dataSourceType" value="${BankDB.dataSourceType}"/>
+        <property name="jndiName" value="${BankDB.jndiName}"/>
+        <property name="serviceId" value="BankDB"/>
+    </bean>
+
+
+    <tx:annotation-driven/>
+
+</beans>
+

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<service xmlns="http://www.activegrid.com/namespaces/ServiceDefinitions/1.0" id="TransferService" class="com.csrfdemo.transferservice.TransferService" type="JavaService" springFile="TransferService.spring.xml">
+    <operation name="setTransfer">
+        <parameter name="fromAcId" typeRef="java.lang.Integer" isList="false"/>
+        <parameter name="toAcId" typeRef="java.lang.Integer" isList="false"/>
+        <parameter name="amount" typeRef="java.lang.Double" isList="false"/>
+        <return typeRef="java.lang.Double" isList="false"/>
+    </operation>
+    <dataobjects/>
+</service>

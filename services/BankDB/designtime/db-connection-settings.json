@@ -1,0 +1,28 @@
+{
+  "username" : "root",
+  "password" : "7b6a43524a353f1b666d7375425c32205754",
+  "url" : "jdbc:mysql://localhost:3306/BankDB?useUnicode=yes&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&createDatabaseIfNotExist=true",
+  "driverClass" : "com.mysql.jdbc.Driver",
+  "dialect" : "com.wavemaker.runtime.data.dialect.MySQLDialect",
+  "serviceId" : "BankDB",
+  "packageName" : "com.csrfdemo.bankdb",
+  "dbType" : "MySQL",
+  "host" : "localhost",
+  "dbName" : "BankDB",
+  "port" : "3306",
+  "schemaName" : null,
+  "tableFilter" : [ ],
+  "schemaFilter" : [ ".*" ],
+  "impersonateUser" : false,
+  "activeDirectoryDomain" : null,
+  "hbm2ddl" : "update",
+  "maxPageSize" : 100,
+  "dataSourceType" : "WM_MANAGED_DATASOURCE",
+  "jndiName" : "",
+  "reloadInfo" : {
+    "reload" : false,
+    "reason" : null,
+    "message" : null
+  },
+  "readOnly" : false
+}

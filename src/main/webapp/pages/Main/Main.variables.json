@@ -1,0 +1,112 @@
+{
+  "BankDBAccountData" : {
+    "_id" : "wm-BankDBAccountData-wm.LiveVariable-1474524705536",
+    "name" : "BankDBAccountData",
+    "owner" : "Page",
+    "category" : "wm.LiveVariable",
+    "dataBinding" : [ ],
+    "operation" : "read",
+    "dataSet" : [ ],
+    "type" : "Account",
+    "isList" : true,
+    "saveInPhonegap" : false,
+    "maxResults" : 20,
+    "designMaxResults" : 10,
+    "inFlightBehavior" : "executeLast",
+    "startUpdate" : true,
+    "autoUpdate" : true,
+    "transformationRequired" : false,
+    "liveSource" : "BankDB",
+    "ignoreCase" : true,
+    "matchMode" : "start",
+    "propertiesMap" : {
+      "columns" : [ {
+        "fieldName" : "id",
+        "type" : "integer",
+        "fullyQualifiedType" : "integer",
+        "columnName" : "ID",
+        "isPrimaryKey" : true,
+        "notNull" : true,
+        "length" : 255,
+        "precision" : 10,
+        "generator" : "identity",
+        "isRelated" : false,
+        "defaultValue" : "",
+        "scale" : 0
+      }, {
+        "fieldName" : "name",
+        "type" : "string",
+        "fullyQualifiedType" : "string",
+        "columnName" : "NAME",
+        "isPrimaryKey" : false,
+        "notNull" : false,
+        "length" : 255,
+        "precision" : 19,
+        "generator" : "assigned",
+        "isRelated" : false,
+        "defaultValue" : "",
+        "scale" : 0
+      }, {
+        "fieldName" : "balance",
+        "type" : "double",
+        "fullyQualifiedType" : "double",
+        "columnName" : "BALANCE",
+        "isPrimaryKey" : false,
+        "notNull" : false,
+        "length" : 255,
+        "precision" : 10,
+        "generator" : "assigned",
+        "isRelated" : false,
+        "defaultValue" : "",
+        "scale" : 0
+      } ],
+      "entityName" : "Account",
+      "fullyQualifiedName" : "com.csrfdemo.bankdb.Account",
+      "tableType" : "TABLE",
+      "primaryFields" : [ "id" ]
+    },
+    "isDefault" : true,
+    "bindCount" : 1,
+    "tableName" : "ACCOUNT",
+    "tableType" : "TABLE",
+    "properties" : [ ],
+    "relatedTables" : [ ],
+    "package" : "com.csrfdemo.bankdb.Account"
+  },
+  "transferVar" : {
+    "_id" : "wm-transferVar-wm.ServiceVariable-1474529171575",
+    "name" : "transferVar",
+    "owner" : "Page",
+    "category" : "wm.ServiceVariable",
+    "dataBinding" : [ {
+      "target" : "fromAcId",
+      "value" : "bind:Widgets.fromAccountTxt.datavalue",
+      "type" : "integer"
+    }, {
+      "target" : "toAcId",
+      "value" : "bind:Widgets.toAccountTxt.datavalue",
+      "type" : "integer"
+    }, {
+      "target" : "amount",
+      "value" : "bind:Widgets.amountTxt.datavalue",
+      "type" : "number"
+    } ],
+    "type" : "number",
+    "service" : "TransferService",
+    "operation" : "setTransfer",
+    "operationId" : "TransferController_setTransfer",
+    "operationType" : "put",
+    "serviceType" : "JavaService",
+    "dataSet" : [ ],
+    "isList" : false,
+    "maxResults" : 20,
+    "designMaxResults" : 10,
+    "onResult" : "Variables.BankDBAccountData.listRecords()",
+    "startUpdate" : false,
+    "autoUpdate" : false,
+    "inFlightBehavior" : "executeLast",
+    "transformationRequired" : false,
+    "saveInPhonegap" : false,
+    "controller" : "Transfer"
+  }
+}
