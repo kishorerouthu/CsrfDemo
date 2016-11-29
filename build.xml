@@ -3,7 +3,7 @@
         Project Build Helper
     </description>
     <property name="webInf" location="src/main/webapp/WEB-INF" />
-
+	<!-- test comment -->
     <target name="copy-libs-jar">
         <mkdir dir="${webInf}/lib"/>
         <echo>Copying jars from ${basedir}/lib to ${webInf}/lib</echo>
