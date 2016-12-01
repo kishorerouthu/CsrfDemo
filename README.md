@@ -1,5 +1,7 @@
 #Information about Project Folder Structure and Files
 
+Adde test comment
+
 ##pom.xml
   Add any maven dependencies to this file. Dependencies declared in this file will be available on the classpath.
 
